@@ -1,3 +1,4 @@
+import { Check } from "lucide-react"
 import type { VariantsType, SelectedVariantsType } from "../../../types"
 
 interface VariantSelectorProps {
@@ -6,7 +7,11 @@ interface VariantSelectorProps {
   onVariantChange: (type: keyof SelectedVariantsType, value: string) => void
 }
 
-export function VariantSelector({ variants, selectedVariants, onVariantChange }: VariantSelectorProps) {
+export function VariantSelector({
+  variants,
+  selectedVariants,
+  onVariantChange,
+}: VariantSelectorProps) {
   return (
     <div className="space-y-6">
       {/* Seletor de cores */}
@@ -32,13 +37,13 @@ export function VariantSelector({ variants, selectedVariants, onVariantChange }:
                 title={color.name}
               >
                 <span className="sr-only">{color.name}</span>
+
                 {selectedVariants.color === color.id && (
                   <span className="absolute inset-0 flex items-center justify-center">
-                    <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Check className="h-4 w-4 text-white" strokeWidth={3} />
                   </span>
                 )}
+
                 <span className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
                   {color.name}
                 </span>
@@ -74,7 +79,9 @@ export function VariantSelector({ variants, selectedVariants, onVariantChange }:
               </button>
             ))}
           </div>
-          {!selectedVariants.size && <p className="mt-2 text-sm text-amber-600">Selecione um tamanho para continuar</p>}
+          {!selectedVariants.size && (
+            <p className="mt-2 text-sm text-amber-600">Selecione um tamanho para continuar</p>
+          )}
         </div>
       )}
     </div>

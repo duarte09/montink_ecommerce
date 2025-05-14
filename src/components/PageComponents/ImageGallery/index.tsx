@@ -1,6 +1,5 @@
 import type React from "react"
-
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import type { ImageType } from "../../../types"
 
 interface ImageGalleryProps {
@@ -10,20 +9,8 @@ interface ImageGalleryProps {
 }
 
 export function ImageGallery({ images, selectedIndex, onSelectImage }: ImageGalleryProps) {
-  const [mainImage, setMainImage] = useState<ImageType>(images[selectedIndex] || { url: "", alt: "" })
   const [isZoomed, setIsZoomed] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  // Atualizar a imagem principal quando o índice selecionado ou as imagens mudarem
-  useEffect(() => {
-    if (images.length > 0) {
-      // Garantir que o índice selecionado está dentro dos limites
-      const validIndex = Math.min(selectedIndex, images.length - 1)
-      setMainImage(images[validIndex])
-    } else {
-      setMainImage({ url: "", alt: "" })
-    }
-  }, [selectedIndex, images])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isZoomed) {
@@ -34,7 +21,6 @@ export function ImageGallery({ images, selectedIndex, onSelectImage }: ImageGall
     }
   }
 
-  // Se não houver imagens, mostrar um placeholder
   if (images.length === 0) {
     return (
       <div className="space-y-4">
@@ -44,6 +30,8 @@ export function ImageGallery({ images, selectedIndex, onSelectImage }: ImageGall
       </div>
     )
   }
+
+  const mainImage = images[selectedIndex]
 
   return (
     <div className="space-y-4">
@@ -65,11 +53,10 @@ export function ImageGallery({ images, selectedIndex, onSelectImage }: ImageGall
           }
         >
           <img
-            src={mainImage.url || "/placeholder.svg?text=Imagem+não+disponível"}
-            alt={mainImage.alt}
+            src={mainImage?.url || "/placeholder.svg?text=Imagem+não+disponível"}
+            alt={mainImage?.alt}
             className="h-full w-full object-contain"
             onError={(e) => {
-              // Fallback para imagem não encontrada
               e.currentTarget.src = "/placeholder.svg?text=Imagem+não+encontrada"
             }}
           />
