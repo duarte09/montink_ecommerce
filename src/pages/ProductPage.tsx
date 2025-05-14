@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useMemo } from "react"
 import { ImageGallery } from "../components/PageComponents/ImageGallery"
 import { ProductInfo } from "../components/PageComponents/ProductInfo"

@@ -1,5 +1,3 @@
-"use client"
-
 interface ProductActionsProps {
   canAddToCart: boolean
   onAddToCart: () => void

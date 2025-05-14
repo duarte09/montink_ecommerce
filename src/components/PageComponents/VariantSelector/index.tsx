@@ -1,5 +1,3 @@
-"use client"
-
 import type { VariantsType, SelectedVariantsType } from "../../../types"
 
 interface VariantSelectorProps {
